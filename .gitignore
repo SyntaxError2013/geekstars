@@ -18,3 +18,4 @@ local.properties
 # Eclipse project files
 #.classpath
 #.project
+.metadata/.plugins/org.eclipse.core.runtime/.settings/org.eclipse.debug.ui.prefs
