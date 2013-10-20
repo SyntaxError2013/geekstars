@@ -87,7 +87,9 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
 		
 		setUpActionBar();
 		
-		weight = Double.parseDouble(getIntent().getExtras().getString(Constants.WEIGHT));
+		Bundle extras = getIntent().getExtras();
+		String B = extras.getString("weight");
+		weight = Double.parseDouble(B);
 		
 		try {
 			initilizeMap();
