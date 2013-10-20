@@ -24,10 +24,45 @@ public class GPSTracker extends Service implements LocationListener {
 	    double longitude;
 	    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
 	    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+	    protected LocationManager locationManager;
 	    
 	    public GPSTracker(Context context) {
 	        this.mContext = context;
-	//        getLocation();
+	       getLocation();
+	    }
+	    
+	    
+	    public Location getLocation() {
+	    	
+			return null;
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		public void stopUsingGPS(){
+	        if(locationManager != null){
+	            locationManager.removeUpdates(GPSTracker.this);
+	        }       
+	    }
+	    
+	    public double getLatitude(){
+	        if(location != null){
+	            latitude = location.getLatitude();
+	        }
+	        return latitude;
+	    }
+	    
+	    
+	    public double getLongitude(){
+	        if(location != null){
+	            longitude = location.getLongitude();
+	        }
+	        return longitude;
+	    }
+	    
+	    public boolean canGetLocation() {
+	        return this.canGetLocation;
 	    }
 	    
 		@Override
