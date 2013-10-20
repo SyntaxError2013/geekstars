@@ -94,8 +94,7 @@ public class MapActivity extends Activity {
 		googleMap.setMyLocationEnabled(true);
         googleMap.setTrafficEnabled(true);
 		
-        LocateDirections(29.869506,77.894973,
-        		29.863651,77.895522, GMapV2Direction.MODE_DRIVING );;
+        LocateDirections(0,0,0,0,GMapV2Direction.MODE_DRIVING);
         
 
 		 gps = new GPSTracker(MapActivity.this);

@@ -8,6 +8,6 @@
           
            <item android:id="@+id/place"
           android:title="PLACE"
-          android:icon="@drawable/place"
+          android:icon="@drawables/place"
           android:showAsAction="ifRoom" />
 </menu>
