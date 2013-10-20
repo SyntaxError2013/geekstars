@@ -38,7 +38,7 @@ public class MapActivity extends Activity {
 	private GoogleMap googleMap;
 	private GPSTracker gps;
 	private GMapV2Direction md1 = new GMapV2Direction();
-	private Date start,end;
+	private Date start;
 	private ArrayList<Double> lat = new ArrayList<Double>();
 	private ArrayList<Double>  lng = new ArrayList<Double>();
 	private ArrayList<Double> dis = new ArrayList<Double>();
@@ -195,7 +195,7 @@ public class MapActivity extends Activity {
 		          				     dis.add(distance);
 		               				 findDirections(prev_lat,prev_lng,
 		               						latitude1,longitude1, GMapV2Direction.MODE_DRIVING );
-		                			    
+		               			    
 		               	         }else{
 		               	            
 		               	         }
