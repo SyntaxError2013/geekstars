@@ -41,3 +41,7 @@ Jogging/.classpath
 Jogging/.classpath
 
 Jogging/.classpath
+
+*.index
+
+*.index

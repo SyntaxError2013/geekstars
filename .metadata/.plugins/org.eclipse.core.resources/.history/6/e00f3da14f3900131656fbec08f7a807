@@ -1,0 +1,31 @@
+package in.syntaxerror.jogging;
+
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.os.Build;
+import android.os.Bundle;
+
+public class MapActivity extends Activity {
+
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.activity_map);
+		
+		setUpActionBar();
+		
+	}
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private void setUpActionBar() {
+		// TODO Auto-generated method stub
+		if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+		{
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			
+		}
+	}
+}
