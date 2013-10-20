@@ -207,7 +207,7 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
 
 		               				double distance = locationA.distanceTo(locationB);
 		          				     dis.add(distance);
-		          				   findDirections(prev_lat,prev_lng,
+		          				   findDirections(lat.get(0),lng.get(0),
 		               						latitude1,longitude1, GMapV2Direction.MODE_DRIVING );
 		                			    
 		               	         }else{
@@ -294,7 +294,9 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
        {
     	   d1=d1+dis.get(i);
        }
+       
        speed=d1/t1;
+       
        calories= Hours*(weight*((3.5+speed*0.2)/3.5));
         	
         	new AlertDialog.Builder(this)
