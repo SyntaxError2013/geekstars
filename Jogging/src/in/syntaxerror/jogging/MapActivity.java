@@ -91,8 +91,8 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
 		googleMap.setMyLocationEnabled(true);
         googleMap.setTrafficEnabled(true);
 		
-        findDirections(29.869506,77.894973,
-        		29.863651,77.895522, GMapV2Direction.MODE_DRIVING );
+//        findDirections(29.869506,77.894973,
+//        		29.863651,77.895522, GMapV2Direction.MODE_DRIVING );
         
 		 gps = new GPSTracker(MapActivity.this);
 		// check if GPS enabled     
@@ -314,6 +314,7 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						// do nothing
+						tts.stop();
                   onResume();
 					}
 				}).show();
