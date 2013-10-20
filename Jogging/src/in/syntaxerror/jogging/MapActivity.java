@@ -19,6 +19,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,42 +43,24 @@ import com.google.android.gms.maps.model.PolylineOptions;
 public class MapActivity extends Activity implements TextToSpeech.OnInitListener {
 
 	protected static final int REQUEST_CODE = 0;
-	private double weight;
+	 double weight;
 	private GoogleMap googleMap;
-	private TextToSpeech tts;
-	private GPSTracker gps;
+	 TextToSpeech tts;
+	GMapV2Direction md;
+	LocationManager locationManager;
+	LocationListener locationListener;
+	 GPSTracker gps;
 	 double	d1,speed, calories;
-	private GMapV2Direction md1 = new GMapV2Direction();
-	private Date start,end;
-	private ArrayList<Double> lat = new ArrayList<Double>();
-	private ArrayList<Double>  lng = new ArrayList<Double>();
-	private ArrayList<Double> dis = new ArrayList<Double>();
+	 GMapV2Direction md1 = new GMapV2Direction();
+	 Date start,end;
+	 ArrayList<Double> lat = new ArrayList<Double>();
+ ArrayList<Double>  lng = new ArrayList<Double>();
+	ArrayList<Double> dis = new ArrayList<Double>();
 	double latitude,longitude;
-	private Timer timer;
-	private TimerTask doAsynchronousTask;
-    private final Handler handler = new Handler();
+	 Timer timer;
+	 TimerTask doAsynchronousTask;
+     final Handler handler = new Handler();
 
-    
-    
-    
-    @Override
-    protected void onPause() {
-    	// TODO Auto-generated method stub
-    	super.onPause();
-    	
-    	handler.removeCallbacks(doAsynchronousTask);
-    }
-    
-    @Override
-    protected void onResume() {
-    	// TODO Auto-generated method stub
-    	super.onResume();
-    	
-    	initilizeMap();
-		handler.post(doAsynchronousTask);
-    }
-    
-    
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +90,8 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
 		googleMap.setMyLocationEnabled(true);
         googleMap.setTrafficEnabled(true);
 		
-        LocateDirections(29.869506,77.894973,
-        		29.863651,77.895522, GMapV2Direction.MODE_DRIVING );;
+        findDirections(29.869506,77.894973,
+        		29.863651,77.895522, GMapV2Direction.MODE_DRIVING );
         
 		 gps = new GPSTracker(MapActivity.this);
 		// check if GPS enabled     
@@ -144,25 +128,42 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
         }
         
         callAsynchronousTask();
+        
+        
+      
 	}
+	
+	
+	
+	  @Override
+	    protected void onPause() {
+	    	// TODO Auto-generated method stub
+	    	super.onPause();
+	    	
+	    	handler.removeCallbacks(doAsynchronousTask);
+	    }
+	    
+	    @Override
+	    protected void onResume() {
+	    	// TODO Auto-generated method stub
+	    	super.onResume();
+	    	
+	    	initilizeMap();
+			handler.post(doAsynchronousTask);
+	    }
+	    
 
-	public void LocateDirections(double fromPositionDoubleLat, double fromPositionDoubleLong, double toPositionDoubleLat, double toPositionDoubleLong, String mode)
+	public void findDirections(double fromPositionDoubleLat, double fromPositionDoubleLong, double toPositionDoubleLat, double toPositionDoubleLong, String mode)
 	{
 		Map<String, String> map = new HashMap<String, String>();
-	    
-		map.put(GetDirectionsAsyncTask.USER_CURRENT_LAT, String.valueOf(fromPositionDoubleLat));
-	  
+	    map.put(GetDirectionsAsyncTask.USER_CURRENT_LAT, String.valueOf(fromPositionDoubleLat));
 	    map.put(GetDirectionsAsyncTask.USER_CURRENT_LONG, String.valueOf(fromPositionDoubleLong));
-	   
 	    map.put(GetDirectionsAsyncTask.DESTINATION_LAT, String.valueOf(toPositionDoubleLat));
-	   
 	    map.put(GetDirectionsAsyncTask.DESTINATION_LONG, String.valueOf(toPositionDoubleLong));
-	  
 	    map.put(GetDirectionsAsyncTask.DIRECTIONS_MODE, mode);
 
 	    
 	    GetDirectionsAsyncTask asyncTask = md1.new GetDirectionsAsyncTask(this);
-	    
 	    asyncTask.execute(map); 
 	}
 	private void callAsynchronousTask() {
@@ -205,7 +206,7 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
 
 		               				double distance = locationA.distanceTo(locationB);
 		          				     dis.add(distance);
-		               				 LocateDirections(prev_lat,prev_lng,
+		          				   findDirections(prev_lat,prev_lng,
 		               						latitude1,longitude1, GMapV2Direction.MODE_DRIVING );
 		                			    
 		               	         }else{
