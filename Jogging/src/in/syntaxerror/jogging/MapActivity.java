@@ -17,6 +17,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
@@ -304,7 +305,10 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
 							public void onClick(DialogInterface dialog,
 									int which) {
 								// continue with delete
-								android.os.Process.killProcess(android.os.Process.myPid());
+								finish();
+								Intent i=new Intent(MapActivity.this,HomeActivity.class);
+								startActivity(i);
+								tts.stop();
 							}
 						})
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -314,6 +318,11 @@ public class MapActivity extends Activity implements TextToSpeech.OnInitListener
 					}
 				}).show();
     
+            return true;
+            
+            
+        case R.id.place:
+        	
             return true;
        
         default:
