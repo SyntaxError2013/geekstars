@@ -17,10 +17,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import android.app.Dialog;
 import android.os.AsyncTask;
+import android.util.Log;
+
+import com.google.android.gms.maps.model.LatLng;
 
 public class GMapV2Direction {
 	

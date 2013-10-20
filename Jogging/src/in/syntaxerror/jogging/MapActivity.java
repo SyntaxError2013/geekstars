@@ -1,8 +1,12 @@
 package in.syntaxerror.jogging;
 
+import in.syntaxerror.jogging.GMapV2Direction.GetDirectionsAsyncTask;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -33,6 +37,7 @@ public class MapActivity extends Activity {
 	private double weight;
 	private GoogleMap googleMap;
 	private GPSTracker gps;
+	private GMapV2Direction md1 = new GMapV2Direction();
 	private Date start;
 	private ArrayList<Double> lat = new ArrayList<Double>();
 	private ArrayList<Double>  lng = new ArrayList<Double>();
@@ -41,6 +46,28 @@ public class MapActivity extends Activity {
 	private TimerTask doAsynchronousTask;
     private final Handler handler = new Handler();
 
+    
+    
+    
+    @Override
+    protected void onPause() {
+    	// TODO Auto-generated method stub
+    	super.onPause();
+    	
+    	handler.removeCallbacks(doAsynchronousTask);
+    }
+    
+    @Override
+    protected void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+    	
+    	initilizeMap();
+		handler.post(doAsynchronousTask);
+    }
+    
+    
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -107,7 +134,25 @@ public class MapActivity extends Activity {
         callAsynchronousTask();
 	}
 
-	
+	public void LocateDirections(double fromPositionDoubleLat, double fromPositionDoubleLong, double toPositionDoubleLat, double toPositionDoubleLong, String mode)
+	{
+		Map<String, String> map = new HashMap<String, String>();
+	    
+		map.put(GetDirectionsAsyncTask.USER_CURRENT_LAT, String.valueOf(fromPositionDoubleLat));
+	  
+	    map.put(GetDirectionsAsyncTask.USER_CURRENT_LONG, String.valueOf(fromPositionDoubleLong));
+	   
+	    map.put(GetDirectionsAsyncTask.DESTINATION_LAT, String.valueOf(toPositionDoubleLat));
+	   
+	    map.put(GetDirectionsAsyncTask.DESTINATION_LONG, String.valueOf(toPositionDoubleLong));
+	  
+	    map.put(GetDirectionsAsyncTask.DIRECTIONS_MODE, mode);
+
+	    
+	    GetDirectionsAsyncTask asyncTask = md1.new GetDirectionsAsyncTask(this);
+	    
+	    asyncTask.execute(map); 
+	}
 	private void callAsynchronousTask() {
 		  timer = new Timer();
 		    doAsynchronousTask = new TimerTask() {       
