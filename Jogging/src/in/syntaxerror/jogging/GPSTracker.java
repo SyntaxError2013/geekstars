@@ -15,6 +15,8 @@ import android.util.Log;
 
 public class GPSTracker extends Service implements LocationListener {
 	
+	
+	
 	private final Context mContext ;
 	boolean isGPSEnabled = false;
 	boolean isNetworkEnabled = false;
