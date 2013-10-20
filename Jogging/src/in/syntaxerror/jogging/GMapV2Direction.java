@@ -21,7 +21,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import android.app.Dialog;
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class GMapV2Direction {
 	
@@ -141,8 +140,6 @@ public class GMapV2Direction {
 	    return -1;
 	}
 	
-	
-	
 	public ArrayList<LatLng> getDirection (Document doc) {
 	    NodeList nl1, nl2, nl3;
 	    ArrayList<LatLng> listGeopoints = new ArrayList<LatLng>();
@@ -181,38 +178,74 @@ public class GMapV2Direction {
 	    return listGeopoints;
 	}
 
-	private ArrayList<LatLng> decodePoly(String encoded) {
+	private ArrayList<LatLng> decodePoly(String textContent) {
 		// TODO Auto-generated method stub
-		 ArrayList<LatLng> poly = new ArrayList<LatLng>();
-		    int index = 0, len = encoded.length();
-		    int lat = 0, lng = 0;
-		    while (index < len) {
-		        int b, shift = 0, result = 0;
-		        do {
-		            b = encoded.charAt(index++) - 63;
-		            result |= (b & 0x1f) << shift;
-		            shift += 5;
-		        } while (b >= 0x20);
-		        int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-		        lat += dlat;
-		        shift = 0;
-		        result = 0;
-		        do {
-		            b = encoded.charAt(index++) - 63;
-		            result |= (b & 0x1f) << shift;
-		            shift += 5;
-		        } while (b >= 0x20);
-		        int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
-		        lng += dlng;
+		return null;
+	}
+	public String getDurationText (Document doc) 
+	{
+    		NodeList nl1 = doc.getElementsByTagName("duration");
+    		Node node1 = nl1.item(0);
+    		NodeList nl2 = node1.getChildNodes();
+    		Node node2 = nl2.item(getNodeIndex(nl2, "text"));
+    		Log.i("DurationText", node2.getTextContent());
+	 	return node2.getTextContent();
+	}
 
-		        LatLng position = new LatLng((double) lat / 1E5, (double) lng / 1E5);
-		        poly.add(position);
-		    }
-		    return poly;
+	public int getDurationValue (Document doc) 
+	{
+	    NodeList nl1 = doc.getElementsByTagName("duration");
+	    Node node1 = nl1.item(0);
+	    NodeList nl2 = node1.getChildNodes();
+	    Node node2 = nl2.item(getNodeIndex(nl2, "value"));
+	    Log.i("DurationValue", node2.getTextContent());
+	    return Integer.parseInt(node2.getTextContent());
+	}
+
+	public String getDistanceText (Document doc) 
+	{
+	    NodeList nl1 = doc.getElementsByTagName("distance");
+	    Node node1 = nl1.item(0);
+	    NodeList nl2 = node1.getChildNodes();
+	    Node node2 = nl2.item(getNodeIndex(nl2, "text"));
+	    Log.i("DistanceText", node2.getTextContent());
+	    return node2.getTextContent();
+	}
+
+	public int getDistanceValue (Document doc) 
+	{
+	    NodeList nl1 = doc.getElementsByTagName("distance");
+	    Node node1 = nl1.item(0);
+	    NodeList nl2 = node1.getChildNodes();
+	    Node node2 = nl2.item(getNodeIndex(nl2, "value"));
+	    Log.i("DistanceValue", node2.getTextContent());
+	    return Integer.parseInt(node2.getTextContent());
+	}
+
+	public String getStartAddress (Document doc) 
+	{
+	    NodeList nl1 = doc.getElementsByTagName("start_address");
+	    Node node1 = nl1.item(0);
+	    Log.i("StartAddress", node1.getTextContent());
+	    return node1.getTextContent();
 	}
 	
+	public String getEndAddress (Document doc) 
+	{
+	    NodeList nl1 = doc.getElementsByTagName("end_address");
+	    Node node1 = nl1.item(0);
+	    Log.i("StartAddress", node1.getTextContent());
+	    return node1.getTextContent();
+	}
 	
-	
+	public String getCopyRights (Document doc) 
+	{
+	    NodeList nl1 = doc.getElementsByTagName("copyrights");
+	    Node node1 = nl1.item(0);
+	    Log.i("CopyRights", node1.getTextContent());
+	    return node1.getTextContent();
+	}
+
 }
 
 
