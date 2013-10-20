@@ -5,4 +5,9 @@
           android:title="STOP"
           android:icon="@drawable/stop"
           android:showAsAction="ifRoom" />
+          
+           <item android:id="@+id/place"
+          android:title="PLACE"
+          android:icon="@drawables/place"
+          android:showAsAction="ifRoom" />
 </menu>
